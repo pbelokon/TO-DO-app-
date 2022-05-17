@@ -8,54 +8,58 @@ import TodoList from "./components/todolist";
 let today = new Date().toLocaleString("en-us", { weekday: "long" });
 
 function App() {
-  const [inputText, sentInputText] = useState("");
-  const [todo, setTodo] = useState([]);
-  const [status, setSelection] = useState("all");
-  const [filtered, setfilterted] = useState([]);
+    const [inputText, sentInputText] = useState("");
+    const [todo, setTodo] = useState([]);
+    const [status, setSelection] = useState("all");
+    const [filtered, setfilterted] = useState([]);
 
-  useEffect(() => {
-    getLocalTasks();
-  }, []);
+    useEffect(() => {
+        getLocalTasks();
+    }, []);
 
-  useEffect(() => {
-    filterHandler();
-    saveLocalTasks();
-  }, [todo, status]);
+    useEffect(() => {
+        filterHandler();
 
-  const filterHandler = () => {
-    switch (status) {
-      case "completed":
-        setfilterted(todo.filter((task) => task.completed === true));
-        break;
-      case "uncompleted":
-        setfilterted(todo.filter((task) => task.completed === false));
-        break;
-      default:
-        setfilterted(todo);
-        break;
-    }
-  };
+        saveLocalTasks();
+    }, [todo, status]);
 
-  const saveLocalTasks = () => {
-    localStorage.setItem("todo", JSON.stringify(todo));
-  };
+    const filterHandler = () => {
+        switch (status) {
+            case "completed":
+                setfilterted(todo.filter((task) => task.completed === true));
+                break;
+            case "uncompleted":
+                setfilterted(todo.filter((task) => task.completed === false));
+                break;
+            default:
+                setfilterted(todo);
+                break;
+        }
+    };
 
-  const getLocalTasks = () => {
-    if (
-      localStorage.getItem("todo") === null ||
-      JSON.parse(localStorage.getItem("todo")).length === 0
-    ) {
-      localStorage.setItem("todo", JSON.stringify([]));
-    } else {
-      let localTask = JSON.parse(localStorage.getItem("todo"));
-      setTodo(localTask);
-    }
-  };
+    const saveLocalTasks = () => {
+        localStorage.setItem("todo", JSON.stringify(todo));
+    };
 
-  return (
-    <div className="App">
-      <header>
-        <h1> {`${today}`}`s Todo List</h1>
+    const getLocalTasks = () => {
+        if (
+            localStorage.getItem("todo") === null ||
+            JSON.parse(localStorage.getItem("todo")).length === 0
+        ) {
+            localStorage.setItem("todo", JSON.stringify([]));
+        } else {
+            let localTask = JSON.parse(localStorage.getItem("todo"));
+            setTodo(localTask);
+        }
+    };
+
+    return ( <
+            div className = "App" >
+            <
+            header >
+            <
+            h1 > { `${today}` }
+            `s Todo List</h1>
       </header>
       <Form
         inputText={inputText}
